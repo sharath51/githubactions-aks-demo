@@ -33,10 +33,10 @@ jobs:
 
           password:  ${{ secrets.ACR_PASSWORD}}
        
-          login-server: ${{ env.CONTAINER_REGISTRY }}
+          login-server: ${{env.CONTAINER_REGISTRY}}
 
       - name: Push Container to 
         run: |
-          docker build -t ${{env.image_name}}:'${{github.sha}}' .
-          docker push ${{env.CONTAINER_REGISTRY}}/${{env.image_name}}:${{ github.sha }}
+          docker build -t ${{env.CONTAINER_REGISTRY}}/${{env.image_name}}:'${{github.sha}}' .
+          docker push ${{env.CONTAINER_REGISTRY}}/${{env.image_name}}:'${{github.sha}}'
       
