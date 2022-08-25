@@ -1,0 +1,41 @@
+name: Push Docker Image to ACR
+
+on:
+ push:
+    branches: [ master ]
+pull_request:
+    branches: [ master ]
+
+env:
+  CONTAINER_REGISTRY: sharathtest.azurecr.io
+  image_name: githubactions-aks-demo
+
+jobs:
+  build:
+    runs-on: ubuntu-latesty
+
+    steps: 
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v1.5.0
+        with:
+          dotnet-version: 3.1.x
+
+      - name: dotnet build
+        run: dotnet build -c release
+      
+      - name: Azure Container Registry Login
+        uses: Azure/docker-login@v1
+        with:
+        username: ${{ secrets.ACR_USERNAME }}
+
+        password:  ${{ secrets.ACR_PASSWORD}}
+       
+        login-server: ${{ env.CONTAINER_REGISTRY }}
+
+      - name: Push Container to 
+        run: |
+          docker build -t ${{env.CONTAINER_REGISTRY}}/${{env.image_name}}:{{ github.sha }} .
+          docker push ${{env.CONTAINER_REGISTRY}}/${{env.image_name}}:{{ github.sha }}
+      
