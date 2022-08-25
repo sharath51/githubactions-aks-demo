@@ -37,6 +37,6 @@ jobs:
 
       - name: Push Container to 
         run: |
-          docker build -t ${{env.CONTAINER_REGISTRY}}/${{env.image_name}}:{{ github.sha }} .
+          docker build . -t ${{env.CONTAINER_REGISTRY}}/${{env.image_name}}:{{ github.sha }} 
           docker push ${{env.CONTAINER_REGISTRY}}/${{env.image_name}}:{{ github.sha }}
       
