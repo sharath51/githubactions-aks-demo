@@ -3,7 +3,7 @@ name: Push Docker Image to ACR
 on:
  push:
     branches: [ main ]
-pull_request:
+ pull_request:
     branches: [ main ]
 
 env:
@@ -28,11 +28,12 @@ jobs:
       - name: Azure Container Registry Login
         uses: Azure/docker-login@v1
         with:
-        username: ${{ secrets.ACR_USERNAME }}
 
-        password:  ${{ secrets.ACR_PASSWORD}}
+          username: ${{ secrets.ACR_USERNAME }}
+
+          password:  ${{ secrets.ACR_PASSWORD}}
        
-        login-server: ${{ env.CONTAINER_REGISTRY }}
+          login-server: ${{ env.CONTAINER_REGISTRY }}
 
       - name: Push Container to 
         run: |
