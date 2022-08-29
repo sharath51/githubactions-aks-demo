@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 env:
-  CONTAINER_REGISTRY: sharathtest.azurecr.io
+  CONTAINER_REGISTRY: sharatest1.azurecr.io
   image_name: githubactions-aks-demo
 
 jobs:
