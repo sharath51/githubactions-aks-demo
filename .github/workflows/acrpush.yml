@@ -40,3 +40,35 @@ jobs:
           docker build -t ${{env.CONTAINER_REGISTRY}}/${{env.image_name}}:'${{github.sha}}' .
           docker push ${{env.CONTAINER_REGISTRY}}/${{env.image_name}}:'${{github.sha}}'
       
+   #   - name: Azure Kubernetes set context
+   #     uses: azure/aks-set-context@v1
+   #     with: 
+   #       creds: '${{secrets.AZURE_CREDENTIALS}}'
+   #       resource-group: github-test
+   #        cluster-name: .....
+
+      
+      # Create K8S secrets to pull images
+  #    - name: create secret in kubernetes cluster
+  #      uses: Azure/k8s-create-secret@v1.1
+  #      with:
+  #        container-registry-url: ${{env.CONTAINER_REGISTRY}}
+  #        container-registry-username: ${{ secrets.ACR_USERNAME }}
+  #        container-registry-password: ${{ secrets.ACR_PASSWORD }}
+  #        secret-type: docker-registry
+  #        secret-name: acr-image-pull-secret
+      
+      # Deploy to K8S Cluster
+  #    - name: Deploy to Kubernetes cluster
+  #      uses: Azure/k8s-deploy@v1
+  #      with:
+          # Path to the manifest files which will be used for deployment.
+  #        manifests: |
+  #          k8s/deplyment.yml
+  #          k8s/service.yml
+          # fully qualified resource url of the image
+  #        images: ${{env.CONTAINER_REGISTRY}}/${{env.image_name}}:'${{github.sha}}'
+          # Name of a docker-registry secret that has already been set up within the cluster.
+  #        imagepullsecrets: acr-image-pull-secret
+          # deploy/promote/reject
+  #        action: deploy
